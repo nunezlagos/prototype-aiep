@@ -1,7 +1,10 @@
-# Logs y archivos de logging (AIEP)
+# Logs y archivos de logging (AIEP) - mantener logs/ excluido
 logs/
 *.log
 Log_Excepciones_*.txt
+
+# Carpeta insumos (excluir del repositorio)
+insumos/
 
 # Dependencies
 node_modules/
