@@ -1,15 +1,24 @@
-# Prototipo Login - Clínica Oftalmológica
+# Clínica Oftalmológica Mírame - Sistema de Gestión
 
-Sistema de autenticación para administración de clínica oftalmológica, inspirado en el diseño de ClaveÚnica.
+## 📋 Descripción del Proyecto
 
-## 🏥 Características
+Sistema web de gestión para la Clínica Oftalmológica Mírame desarrollado con arquitectura MVC (Model-View-Controller) en Node.js. El sistema incluye autenticación de usuarios, dashboard administrativo y un robusto sistema de logging para monitoreo de seguridad y errores.
 
-- **Diseño Profesional**: Interfaz inspirada en ClaveÚnica con temática médica
-- **Autenticación Segura**: Sistema de login con validación de RUT chileno
-- **Responsive Design**: Adaptable a dispositivos móviles y desktop
-- **Modo Oscuro**: Toggle entre tema claro y oscuro
-- **Accesibilidad**: Controles de tamaño de fuente y navegación por teclado
-- **Sesiones Seguras**: Manejo de sesiones con Express Session
+## 🏗️ Arquitectura MVC
+
+```
+prototipo-aiep/
+├── src/
+│   ├── controllers/     # Lógica de negocio
+│   ├── views/          # Interfaces de usuario
+│   ├── routes/         # Definición de rutas
+│   ├── middlewares/    # Middleware personalizado
+│   └── helpers/        # Utilidades y helpers
+├── public/             # Archivos estáticos
+├── logs/              # Archivos de log (auto-generados)
+├── insumos/           # Documentación del proyecto
+└── test.js           # Tests básicos
+```
 
 ## 🚀 Instalación
 
