@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Clínica Oftalmológica Mírame</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --primary-dark: #5a67d8;
+            --secondary-color: #764ba2;
+            --accent-color: #f093fb;
+            --success-color: #48bb78;
+            --warning-color: #ed8936;
+            --error-color: #f56565;
+            --info-color: #4299e1;
+            --bg-primary: #f7fafc;
+            --bg-secondary: #ffffff;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .dashboard-header {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-xl);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .brand-text h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .brand-text p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .user-info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .user-info p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Security Notice */
+        .security-notice {
+            background: linear-gradient(135deg, #fef5e7, #fed7aa);
+            border: 1px solid #f6ad55;
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #744210;
+            font-weight: 500;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .security-notice i {
+            font-size: 1.25rem;
+            color: var(--warning-color);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card.patients::before { background: linear-gradient(90deg, var(--info-color), #63b3ed); }
+        .stat-card.appointments::before { background: linear-gradient(90deg, var(--error-color), #fc8181); }
+        .stat-card.revenue::before { background: linear-gradient(90deg, var(--success-color), #68d391); }
+        .stat-card.pending::before { background: linear-gradient(90deg, var(--warning-color), #f6ad55); }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .stat-card:hover::before {
+            height: 6px;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .stat-card.patients .stat-icon { background: linear-gradient(135deg, var(--info-color), #63b3ed); }
+        .stat-card.appointments .stat-icon { background: linear-gradient(135deg, var(--error-color), #fc8181); }
+        .stat-card.revenue .stat-icon { background: linear-gradient(135deg, var(--success-color), #68d391); }
+        .stat-card.pending .stat-icon { background: linear-gradient(135deg, var(--warning-color), #f6ad55); }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .trend-up { color: var(--success-color); }
+        .trend-down { color: var(--error-color); }
+
+        /* Modules Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .module-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+
+        .module-card:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .module-card:hover::before {
+            opacity: 1;
+        }
+
+        .module-card:hover .module-header,
+        .module-card:hover .module-content {
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .module-card:hover .module-title i {
+            color: white;
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .module-card:hover .status-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .module-card:hover .data-item {
+            color: white;
+        }
+
+        .module-card:hover .item-primary {
+            color: white;
+        }
+
+        .module-card:hover .item-secondary {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .module-card:active {
+            transform: translateY(-4px) rotateX(2deg);
+            transition: all 0.1s ease;
+        }
+
+        .module-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .module-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .module-title i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .module-content {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Lists */
+        .data-list {
+            list-style: none;
+        }
+
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .data-item:last-child {
+            border-bottom: none;
+        }
+
+        .data-item:hover {
+            background: var(--bg-primary);
+            margin: 0 -1.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-md);
+        }
+
+        .item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .item-primary {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .item-secondary {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-active {
+            background: #f0fff4;
+            color: var(--success-color);
+            border: 1px solid #9ae6b4;
+        }
+
+        .status-pending {
+            background: #fffbeb;
+            color: var(--warning-color);
+            border: 1px solid #f6ad55;
+        }
+
+        .status-completed {
+            background: #ebf8ff;
+            color: var(--info-color);
+            border: 1px solid #90cdf4;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Logout Section */
+        .logout-section {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .logout-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--error-color), #e53e3e);
+            color: white;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-md);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-text h1 {
+                font-size: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Pulse Animation for Loading States */
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Security Notice -->
+        <div class="security-notice fade-in">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+                <strong>Prototipo Seguro:</strong> Este sistema implementa medidas de seguridad OWASP Top 10. Todos los datos mostrados son de ejemplo para demostración.
+            </div>
+        </div>
+
+        <!-- Dashboard Header -->
+        <header class="dashboard-header fade-in">
+            <div class="header-content">
+                <div class="brand-section">
+                    <div class="brand-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="brand-text">
+                        <h1>Clínica Oftalmológica Mírame</h1>
+                        <p>Sistema de Gestión Médica - Panel de Administración</p>
+                    </div>
+                </div>
+                <div class="user-section" id="userWelcome">
+                    <div class="user-avatar pulse">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <h3>Cargando usuario...</h3>
+                        <p>Administrador del Sistema</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Statistics Grid -->
+        <section class="stats-grid">
+            <article class="stat-card patients fade-in">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-number">1,247</div>
+                        <div class="stat-label">Pacientes Registrados</div>
+                        <div class="stat-trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+12% este mes</span>
+                        </div>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+            </article>
+
+            <article class="stat-card appointments fade-in">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-number">23</div>
+                        <div class="stat-label">Citas Hoy</div>
+                        <div class="stat-trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+5 vs ayer</span>
+                        </div>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                </div>
+            </article>
+
+            <article class="stat-card revenue fade-in">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-number">$2.4M</div>
+                        <div class="stat-label">Ingresos Mensuales</div>
+                        <div class="stat-trend trend-up">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+8% vs mes anterior</span>
+                        </div>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+            </article>
+
+            <article class="stat-card pending fade-in">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">Pendientes</div>
+                        <div class="stat-trend trend-down">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>-3 vs ayer</span>
+                        </div>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Modules Grid -->
+        <section class="modules-grid">
+            <!-- Recent Patients Module -->
+            <article class="module-card fade-in">
+                <header class="module-header">
+                    <div class="module-title">
+                        <i class="fas fa-user-injured"></i>
+                        <span>Pacientes Recientes</span>
+                    </div>
+                    <span class="status-badge status-active">Activo</span>
+                </header>
+                <div class="module-content">
+                    <ul class="data-list" id="patientsList">
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">María González Pérez</div>
+                                <div class="item-secondary">ID: P-2024-001 • Última visita: 15/01/2024</div>
+                            </div>
+                            <span class="status-badge status-active">Activo</span>
+                        </li>
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">Carlos Rodríguez Silva</div>
+                                <div class="item-secondary">ID: P-2024-002 • Última visita: 14/01/2024</div>
+                            </div>
+                            <span class="status-badge status-pending">Seguimiento</span>
+                        </li>
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">Ana López Martín</div>
+                                <div class="item-secondary">ID: P-2024-003 • Última visita: 13/01/2024</div>
+                            </div>
+                            <span class="status-badge status-completed">Completado</span>
+                        </li>
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">José Fernández Torres</div>
+                                <div class="item-secondary">ID: P-2024-004 • Última visita: 12/01/2024</div>
+                            </div>
+                            <span class="status-badge status-active">Activo</span>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Appointments Module -->
+            <article class="module-card fade-in">
+                <header class="module-header">
+                    <div class="module-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Citas de Hoy</span>
+                    </div>
+                    <span class="status-badge status-pending">23 Citas</span>
+                </header>
+                <div class="module-content">
+                    <ul class="data-list" id="appointmentsList">
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">Dr. Juan Pérez - María González</div>
+                                <div class="item-secondary">09:00 AM • Consulta General • Sala 1</div>
+                            </div>
+                            <span class="status-badge status-active">En curso</span>
+                        </li>
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">Dra. Carmen Silva - Carlos Rodríguez</div>
+                                <div class="item-secondary">10:30 AM • Examen de Vista • Sala 2</div>
+                            </div>
+                            <span class="status-badge status-pending">Pendiente</span>
+                        </li>
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">Dr. Luis Martín - Ana López</div>
+                                <div class="item-secondary">11:15 AM • Cirugía Menor • Quirófano</div>
+                            </div>
+                            <span class="status-badge status-pending">Pendiente</span>
+                        </li>
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">Dra. Elena Torres - José Fernández</div>
+                                <div class="item-secondary">02:00 PM • Control Post-Op • Sala 3</div>
+                            </div>
+                            <span class="status-badge status-completed">Completado</span>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Medical Records Module -->
+            <article class="module-card fade-in">
+                <header class="module-header">
+                    <div class="module-title">
+                        <i class="fas fa-file-medical"></i>
+                        <span>Historiales Médicos</span>
+                    </div>
+                    <span class="status-badge status-active">Actualizado</span>
+                </header>
+                <div class="module-content">
+                    <ul class="data-list">
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">Examen Oftalmológico Completo</div>
+                                <div class="item-secondary">María González • 15/01/2024 • Dr. Juan Pérez</div>
+                            </div>
+                            <span class="status-badge status-completed">Finalizado</span>
+                        </li>
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">Cirugía de Cataratas</div>
+                                <div class="item-secondary">Carlos Rodríguez • 14/01/2024 • Dra. Carmen Silva</div>
+                            </div>
+                            <span class="status-badge status-active">En seguimiento</span>
+                        </li>
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">Tratamiento Glaucoma</div>
+                                <div class="item-secondary">Ana López • 13/01/2024 • Dr. Luis Martín</div>
+                            </div>
+                            <span class="status-badge status-pending">Pendiente</span>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Reports Module -->
+            <article class="module-card fade-in">
+                <header class="module-header">
+                    <div class="module-title">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reportes y Estadísticas</span>
+                    </div>
+                    <span class="status-badge status-active">Actualizado</span>
+                </header>
+                <div class="module-content">
+                    <ul class="data-list">
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">Reporte Mensual de Pacientes</div>
+                                <div class="item-secondary">Enero 2024 • 1,247 pacientes atendidos</div>
+                            </div>
+                            <span class="status-badge status-completed">Disponible</span>
+                        </li>
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">Estadísticas de Cirugías</div>
+                                <div class="item-secondary">Q4 2023 • 89% tasa de éxito</div>
+                            </div>
+                            <span class="status-badge status-completed">Disponible</span>
+                        </li>
+                        <li class="data-item">
+                            <div class="item-info">
+                                <div class="item-primary">Análisis de Satisfacción</div>
+                                <div class="item-secondary">Diciembre 2023 • 4.8/5.0 promedio</div>
+                            </div>
+                            <span class="status-badge status-active">En proceso</span>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <button class="action-btn" onclick="showModule('patients')">
+                <i class="fas fa-user-plus"></i>
+                <span>Nuevo Paciente</span>
+            </button>
+            <button class="action-btn" onclick="showModule('appointments')">
+                <i class="fas fa-calendar-plus"></i>
+                <span>Agendar Cita</span>
+            </button>
+            <button class="action-btn" onclick="showModule('records')">
+                <i class="fas fa-file-medical-alt"></i>
+                <span>Ver Historiales</span>
+            </button>
+            <button class="action-btn" onclick="showModule('reports')">
+                <i class="fas fa-chart-pie"></i>
+                <span>Generar Reporte</span>
+            </button>
+            <button class="action-btn" onclick="contactSupport()">
+                <i class="fas fa-headset"></i>
+                <span>Soporte Técnico</span>
+            </button>
+        </section>
+
+        <!-- Logout Section -->
+        <section class="logout-section">
+            <button class="logout-btn" onclick="secureLogout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </section>
+    </div>
+
+    <script>
+        // Security and utility functions
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+
+        // Load user information securely
+        async function loadUserInfo() {
+            try {
+                const response = await fetch('/api/user', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    credentials: 'same-origin'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error al cargar información del usuario');
+                }
+
+                const userData = await response.json();
+                
+                // Sanitize and display user data
+                const userWelcome = document.getElementById('userWelcome');
+                const userName = escapeHtml(userData.name || 'Usuario');
+                const userRole = escapeHtml(userData.role || 'Usuario');
+                
+                userWelcome.innerHTML = `
+                    <div class="user-avatar">
+                        ${userName.charAt(0).toUpperCase()}
+                    </div>
+                    <div class="user-info">
+                        <h3>Bienvenido, ${userName}</h3>
+                        <p>${userRole}</p>
+                    </div>
+                `;
+                
+                userWelcome.classList.remove('loading');
+                
+            } catch (error) {
+                console.error('Error:', error);
+                const userWelcome = document.getElementById('userWelcome');
+                userWelcome.innerHTML = `
+                    <div class="user-avatar">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="user-info">
+                        <h3>Error al cargar usuario</h3>
+                        <p>Intente recargar la página</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Module interaction functions
+        function showModule(moduleType) {
+            // Simulate module interaction with visual feedback
+            const button = event.target.closest('.action-btn');
+            const originalText = button.innerHTML;
+            
+            button.style.transform = 'scale(0.95)';
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Cargando...</span>';
+            
+            setTimeout(() => {
+                button.style.transform = '';
+                button.innerHTML = originalText;
+                
+                // Show success message
+                showNotification(`Módulo ${moduleType} cargado correctamente`, 'success');
+            }, 1000);
+        }
+
+        // Contact support function with logging
+        async function contactSupport() {
+            const button = event.target.closest('.action-btn');
+            const originalContent = button.innerHTML;
+            
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Contactando...</span>';
+            
+            try {
+                // Log support event
+                const response = await fetch('/api/support-event', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    credentials: 'same-origin',
+                    body: JSON.stringify({
+                        eventType: 'SUPPORT_CONTACT',
+                        timestamp: new Date().toISOString(),
+                        userAgent: navigator.userAgent,
+                        details: 'Usuario solicitó contacto con soporte técnico desde dashboard'
+                    })
+                });
+
+                // Simulate support contact process
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                showNotification('Solicitud de soporte enviada. Un técnico se contactará pronto.', 'success');
+                
+                // Show support contact modal (simulated)
+                const supportInfo = `
+                    📞 Teléfono: +56 2 2345 6789
+                    📧 Email: soporte@clinicamirame.cl
+                    💬 Chat: Disponible 24/7
+                    🕒 Horario: Lunes a Viernes 8:00-18:00
+                `;
+                
+                setTimeout(() => {
+                    alert(`Información de Soporte Técnico:\n\n${supportInfo}`);
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Error al contactar soporte:', error);
+                showNotification('Error al contactar soporte técnico', 'error');
+            } finally {
+                button.disabled = false;
+                button.innerHTML = originalContent;
+            }
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                background: ${type === 'success' ? 'var(--success-color)' : 'var(--info-color)'};
+                color: white;
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-lg);
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Secure logout function
+        async function secureLogout() {
+            const button = event.target.closest('.logout-btn');
+            const originalText = button.innerHTML;
+            
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Cerrando sesión...</span>';
+            
+            try {
+                // Add delay to prevent timing attacks
+                await new Promise(resolve => setTimeout(resolve, Math.random() * 500 + 500));
+                
+                const response = await fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    credentials: 'same-origin'
+                });
+
+                if (response.ok) {
+                    showNotification('Sesión cerrada correctamente', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
+                } else {
+                    throw new Error('Error al cerrar sesión');
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+                showNotification('Error al cerrar sesión', 'error');
+                button.disabled = false;
+                button.innerHTML = originalText;
+            }
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add fade-in animation to elements
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            // Load user information
+            loadUserInfo();
+            
+            // Add click-to-frame protection
+            if (window.top !== window.self) {
+                window.top.location = window.self.location;
+            }
+        });
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
