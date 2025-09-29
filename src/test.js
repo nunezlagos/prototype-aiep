@@ -14,7 +14,7 @@ async function runBasicTests() {
     try {
         // Test 1: Logger functionality
         console.log('1️⃣ Probando sistema de logging...');
-        logger.logSystemError('Test error', { test: true });
+        logger.logError('Test error', { type: 'SYSTEM_ERROR', test: true });
         console.log('✅ Logger funcionando correctamente\n');
         
         // Test 2: Server startup (implícito si llegamos aquí)
@@ -44,7 +44,7 @@ async function runBasicTests() {
         
     } catch (error) {
         console.error('❌ Error en tests:', error.message);
-        logger.logSystemError(`Test error: ${error.message}`, { stack: error.stack });
+        logger.logError(error, { type: 'SYSTEM_ERROR' });
         process.exit(1);
     }
 }
@@ -75,23 +75,23 @@ async function runLoggingTests() {
         console.log('3️⃣ Test: Generación de diferentes tipos de logs...');
         
         // Login Error
-        logger.logLoginError('test_user', '127.0.0.1', 'Test login error');
+        logger.logError('Test login error', { type: 'LOGIN_ERROR', username: 'test_user', ip: '127.0.0.1' });
         console.log('   ✅ LOGIN_ERROR registrado');
         
         // Security Threat
-        logger.logSecurityThreat('SQL_INJECTION', 'SELECT * FROM users', '127.0.0.1', '/test');
+        logger.logError('SQL injection attempt detected', { type: 'SECURITY_THREAT', input: 'SELECT * FROM users', ip: '127.0.0.1', endpoint: '/test' });
         console.log('   ✅ SECURITY_THREAT registrado');
         
         // System Error
-        logger.logSystemError('Test system error', { component: 'test' });
+        logger.logError('Test system error', { type: 'SYSTEM_ERROR', component: 'test' });
         console.log('   ✅ SYSTEM_ERROR registrado');
         
         // Support Event
-        logger.logSupportEvent('TEST_EVENT', { user: 'test' }, 'Test support event');
+        logger.logError('TEST_EVENT', { type: 'SUPPORT_EVENT', user: { user: 'test' }, description: 'Test support event' });
         console.log('   ✅ SUPPORT_EVENT registrado');
         
         // Unauthorized Access
-        logger.logUnauthorizedAccess('127.0.0.1', '/admin/test');
+        logger.logError('Access denied to /admin/test', { type: 'UNAUTHORIZED_ACCESS', ip: '127.0.0.1' });
         console.log('   ✅ UNAUTHORIZED_ACCESS registrado\n');
         
         // Test 8: Verificar función global logError() con detección automática
@@ -223,7 +223,7 @@ async function runLoggingTests() {
         
     } catch (error) {
         console.error('❌ Error en tests de logging:', error.message);
-        logger.logSystemError(`Logging test error: ${error.message}`, { stack: error.stack });
+        logger.logError(error, { type: 'SYSTEM_ERROR' });
         throw error;
     }
 }

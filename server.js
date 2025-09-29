@@ -45,31 +45,25 @@ app.use('/dashboard', dashboardRoutes);
 // Middleware para rutas no encontradas
 app.use((req, res) => {
     const clientIP = req.ip || req.connection.remoteAddress || 'unknown';
-    logger.logUnauthorizedAccess(clientIP, req.originalUrl);
+    logger.logError('Unauthorized access attempt', { req, type: 'UNAUTHORIZED_ACCESS' });
     res.status(404).json({ error: 'Página no encontrada' });
 });
 
 // Middleware de manejo de errores
 app.use((err, req, res, next) => {
-    logger.logSystemError(`Server error: ${err.message}`, { stack: err.stack });
+    logger.logError(err, { type: 'SYSTEM_ERROR' });
     res.status(500).json({ error: 'Error interno del servidor' });
 });
 
 // Manejo global de errores no capturados
 process.on('uncaughtException', (error) => {
-    logger.logSystemError(`Uncaught Exception: ${error.message}`, { 
-        stack: error.stack,
-        type: 'uncaughtException'
-    });
+    logger.logError(error, { type: 'SYSTEM_ERROR' });
     console.error('💥 Error crítico no capturado:', error.message);
     // No salir del proceso para mantener el servidor funcionando
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-    logger.logSystemError(`Unhandled Promise Rejection: ${reason}`, { 
-        promise: promise.toString(),
-        type: 'unhandledRejection'
-    });
+    logger.logError(reason, { type: 'SYSTEM_ERROR' });
     console.error('⚠️ Promesa rechazada no manejada:', reason);
 });
 

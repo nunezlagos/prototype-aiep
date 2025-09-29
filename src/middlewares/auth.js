@@ -7,12 +7,12 @@ function requireAuth(req, res, next) {
     try {
         if (!req.session.user) {
             const clientIP = req.ip || req.connection.remoteAddress || 'unknown';
-            logger.logUnauthorizedAccess(clientIP, req.originalUrl);
+            logger.logError('Unauthorized access attempt', { req, type: 'UNAUTHORIZED_ACCESS' });
             return res.status(401).json({ error: 'Acceso no autorizado. Debe iniciar sesión.' });
         }
         next();
     } catch (error) {
-        logger.logSystemError(`Auth middleware error: ${error.message}`, { stack: error.stack });
+        logger.logError(error, { type: 'SYSTEM_ERROR' });
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 }
@@ -47,7 +47,7 @@ function securityMiddleware(req, res, next) {
         
         next();
     } catch (error) {
-        logger.logSystemError(`Security middleware error: ${error.message}`, { stack: error.stack });
+        logger.logError(error, { type: 'SYSTEM_ERROR' });
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 }

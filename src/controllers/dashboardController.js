@@ -15,7 +15,7 @@ class DashboardController {
             ];
             
             if (suspiciousPatterns.some(pattern => pattern.test(queryString))) {
-                logger.logSecurityThreat('MALICIOUS_PARAMS', queryString, clientIP, req.originalUrl);
+                logger.logError('Malicious parameters detected', { req, type: 'SECURITY_THREAT', queryString });
                 return res.status(400).json({ error: 'Parámetros no válidos detectados' });
             }
 
@@ -23,10 +23,7 @@ class DashboardController {
             res.sendFile(path.join(__dirname, '../views/dashboard.html'));
             
         } catch (error) {
-            logger.logSystemError(`Dashboard error: ${error.message}`, { 
-                user: req.session.user?.username,
-                stack: error.stack 
-            });
+            logger.logError(error, { req, type: 'SYSTEM_ERROR' });
             res.status(500).json({ error: 'Error interno del servidor' });
         }
     }
@@ -40,7 +37,7 @@ class DashboardController {
                 return res.status(400).json({ error: 'Tipo de evento y descripción son requeridos' });
             }
 
-            logger.logSupportEvent(eventType, userInfo, { description });
+            logger.logError(eventType, { req, type: 'SUPPORT_EVENT', userInfo, description });
             
             res.json({
                 success: true,
@@ -49,10 +46,7 @@ class DashboardController {
             });
             
         } catch (error) {
-            logger.logSystemError(`Support event error: ${error.message}`, { 
-                user: req.session.user?.username,
-                stack: error.stack 
-            });
+            logger.logError(error, { req, type: 'SYSTEM_ERROR' });
             res.status(500).json({ error: 'Error interno del servidor' });
         }
     }

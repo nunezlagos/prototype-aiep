@@ -1,0 +1,12 @@
+[29-09-2025, 09:26:34 a. m.] SYSTEM_ERROR: Test error | type:SYSTEM_ERROR,test:true @test.js:17
+[29-09-2025, 09:26:34 a. m.] LOGIN_ERROR: Test login error | type:LOGIN_ERROR,username:test_user,ip:127.0.0.1 @test.js:78
+[29-09-2025, 09:26:34 a. m.] SECURITY_THREAT: SQL injection attempt detected | type:SECURITY_THREAT,input:SELECT * FROM users,ip:127.0.0.1,endpoint:/test @test.js:82
+[29-09-2025, 09:26:34 a. m.] SYSTEM_ERROR: Test system error | type:SYSTEM_ERROR,component:test @test.js:86
+[29-09-2025, 09:26:34 a. m.] SUPPORT_EVENT: TEST_EVENT | type:SUPPORT_EVENT,user:[object Object],description:Test support event,userId:unknown @test.js:90
+[29-09-2025, 09:26:34 a. m.] UNAUTHORIZED_ACCESS: Access denied to /admin/test | type:UNAUTHORIZED_ACCESS,ip:127.0.0.1 @test.js:94
+[29-09-2025, 09:26:34 a. m.] SYSTEM_ERROR: LOGIN_ERROR: Invalid credentials for user test | action:test_login,ip:127.0.0.1,stack:Error: LOGIN_ERROR: Invalid credentials for user test @test.js:104
+[29-09-2025, 09:26:34 a. m.] SYSTEM_ERROR: SECURITY_THREAT: SQL injection attempt detected | action:test_security,ip:192.168.1.100,stack:Error: SECURITY_THREAT: SQL injection attempt detected @test.js:110
+[29-09-2025, 09:26:34 a. m.] SYSTEM_ERROR: VALIDATION_ERROR: Email format is invalid | action:test_validation,userId:test123,stack:Error: VALIDATION_ERROR: Email format is invalid @test.js:116
+[29-09-2025, 09:26:34 a. m.] SYSTEM_ERROR: DATABASE_ERROR: Connection timeout | action:test_database,query:SELECT * FROM users,stack:Error: DATABASE_ERROR: Connection timeout @test.js:122
+[29-09-2025, 09:26:34 a. m.] SYSTEM_ERROR: Unexpected system failure | action:test_system,component:file_processor,stack:Error: Unexpected system failure @test.js:129
+[29-09-2025, 09:26:34 a. m.] SYSTEM_ERROR: AUTHENTICATION_ERROR: Token expired | req:[object Object],action:test_auth_context,stack:Error: AUTHENTICATION_ERROR: Token expired,ip:192.168.1.50,method:POST,url:/api/login,userAgent:Mozilla/5.0 Test Browser @test.js:148

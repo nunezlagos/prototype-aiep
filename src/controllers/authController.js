@@ -35,7 +35,7 @@ class AuthController {
 
             // Validación de entrada
             if (!username || !password) {
-                logger.logLoginError(username || 'empty', clientIP, { reason: 'Missing credentials' });
+                logger.logError('Missing credentials', { req, type: 'LOGIN_ERROR', username: username || 'empty' });
                 return res.status(400).json({ error: 'Usuario y contraseña son requeridos' });
             }
 
@@ -46,12 +46,12 @@ class AuthController {
             const suspiciousInput = [username, password].join(' ');
             
             if (sqlPatterns.some(pattern => pattern.test(suspiciousInput))) {
-                logger.logSecurityThreat('SQL_INJECTION', suspiciousInput, clientIP, req.originalUrl);
+                logger.logError('SQL injection attempt detected', { req, type: 'SECURITY_THREAT', input: suspiciousInput });
                 return res.status(400).json({ error: 'Entrada no válida detectada' });
             }
             
             if (xssPatterns.some(pattern => pattern.test(suspiciousInput))) {
-                logger.logSecurityThreat('XSS_ATTEMPT', suspiciousInput, clientIP, req.originalUrl);
+                logger.logError('XSS attempt detected', { req, type: 'SECURITY_THREAT', input: suspiciousInput });
                 return res.status(400).json({ error: 'Entrada no válida detectada' });
             }
 
@@ -59,7 +59,7 @@ class AuthController {
             const user = users.find(u => u.username === username);
             
             if (!user || !bcrypt.compareSync(password, user.password)) {
-                logger.logLoginError(username, clientIP, { reason: 'Invalid credentials' });
+                logger.logError('Invalid credentials', { req, type: 'LOGIN_ERROR', username });
                 return res.status(401).json({ error: 'Credenciales inválidas' });
             }
 
@@ -89,13 +89,13 @@ class AuthController {
             const username = req.session.user?.username || 'unknown';
             req.session.destroy((err) => {
                 if (err) {
-                    logger.logSystemError(`Logout error: ${err.message}`, { username });
+                    logger.logError(err, { type: 'SYSTEM_ERROR', username });
                     return res.status(500).json({ error: 'Error al cerrar sesión' });
                 }
                 res.json({ success: true, message: 'Sesión cerrada exitosamente' });
             });
         } catch (error) {
-            logger.logSystemError(`Logout error: ${error.message}`, { stack: error.stack });
+            logger.logError(error, { type: 'SYSTEM_ERROR' });
             res.status(500).json({ error: 'Error interno del servidor' });
         }
     }
@@ -107,7 +107,7 @@ class AuthController {
             }
             res.json({ user: req.session.user });
         } catch (error) {
-            logger.logSystemError(`Get user error: ${error.message}`, { stack: error.stack });
+            logger.logError(error, { type: 'SYSTEM_ERROR' });
             res.status(500).json({ error: 'Error interno del servidor' });
         }
     }

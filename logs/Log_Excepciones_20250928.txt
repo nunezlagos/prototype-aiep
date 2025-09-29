@@ -54,3 +54,17 @@
 [28-09-2025, 10:39:10 p. m.] SYSTEM_ERROR: DATABASE_ERROR: Connection timeout | action:test_database,query:SELECT * FROM users,stack:Error: DATABASE_ERROR: Connection timeout @test.js:122
 [28-09-2025, 10:39:10 p. m.] SYSTEM_ERROR: Unexpected system failure | action:test_system,component:file_processor,stack:Error: Unexpected system failure @test.js:129
 [28-09-2025, 10:39:10 p. m.] SYSTEM_ERROR: AUTHENTICATION_ERROR: Token expired | req:[object Object],action:test_auth_context,stack:Error: AUTHENTICATION_ERROR: Token expired,ip:192.168.1.50,method:POST,url:/api/login,userAgent:Mozilla/5.0 Test Browser @test.js:148
+[28-09-2025, 11:18:48 p. m.] SYSTEM_ERROR: Test error | test:true @test.js:17
+[28-09-2025, 11:18:49 p. m.] LOGIN_ERROR: Failed login: test_user | 0:T,1:e,2:s,3:t,4: ,5:l,6:o,7:g,8:i,9:n,10: ,11:e,12:r,13:r,14:o,15:r,ip:127.0.0.1 @test.js:78
+[28-09-2025, 11:18:49 p. m.] SECURITY_THREAT: SQL_INJECTION detected | input:SELECT * FROM users,ip:127.0.0.1,endpoint:/test @test.js:82
+[28-09-2025, 11:18:49 p. m.] SYSTEM_ERROR: Test system error | component:test @test.js:86
+[28-09-2025, 11:18:49 p. m.] SUPPORT_EVENT: TEST_EVENT | 0:T,1:e,2:s,3:t,4: ,5:s,6:u,7:p,8:p,9:o,10:r,11:t,12: ,13:e,14:v,15:e,16:n,17:t,user:[object Object] @test.js:90
+[28-09-2025, 11:18:49 p. m.] UNAUTHORIZED_ACCESS: Access denied to /admin/test | ip:127.0.0.1 @test.js:94
+[28-09-2025, 11:18:49 p. m.] SYSTEM_ERROR: LOGIN_ERROR: Invalid credentials for user test | action:test_login,ip:127.0.0.1,stack:Error: LOGIN_ERROR: Invalid credentials for user test @test.js:104
+[28-09-2025, 11:18:49 p. m.] SYSTEM_ERROR: SECURITY_THREAT: SQL injection attempt detected | action:test_security,ip:192.168.1.100,stack:Error: SECURITY_THREAT: SQL injection attempt detected @test.js:110
+[28-09-2025, 11:18:49 p. m.] SYSTEM_ERROR: VALIDATION_ERROR: Email format is invalid | action:test_validation,userId:test123,stack:Error: VALIDATION_ERROR: Email format is invalid @test.js:116
+[28-09-2025, 11:18:49 p. m.] SYSTEM_ERROR: DATABASE_ERROR: Connection timeout | action:test_database,query:SELECT * FROM users,stack:Error: DATABASE_ERROR: Connection timeout @test.js:122
+[28-09-2025, 11:18:49 p. m.] SYSTEM_ERROR: Unexpected system failure | action:test_system,component:file_processor,stack:Error: Unexpected system failure @test.js:129
+[28-09-2025, 11:18:49 p. m.] SYSTEM_ERROR: AUTHENTICATION_ERROR: Token expired | req:[object Object],action:test_auth_context,stack:Error: AUTHENTICATION_ERROR: Token expired,ip:192.168.1.50,method:POST,url:/api/login,userAgent:Mozilla/5.0 Test Browser @test.js:148
+[28-09-2025, 11:20:45 p. m.] LOGIN_ERROR: Failed login: asd | ip:::ffff:127.0.0.1,reason:Invalid credentials @authController.js:62
+[28-09-2025, 11:21:16 p. m.] UNAUTHORIZED_ACCESS: Access denied to /api/user | ip:::ffff:127.0.0.1 @layer.js:95
