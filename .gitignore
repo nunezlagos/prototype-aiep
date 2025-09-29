@@ -1,8 +1,3 @@
-# Logs y archivos de logging (AIEP) - mantener logs/ excluido
-logs/
-*.log
-Log_Excepciones_*.txt
-
 # Carpeta insumos (excluir del repositorio)
 insumos/
 
@@ -91,10 +86,6 @@ typings/
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
-
-# Logs
-logs/
-*.log
 
 # Runtime files
 *.tmp
