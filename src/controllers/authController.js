@@ -78,7 +78,8 @@ class AuthController {
             });
 
         } catch (error) {
-            logger.logSystemError(`Login error: ${error.message}`, { stack: error.stack });
+            // Uso de la nueva función global logError() - detecta automáticamente el tipo
+            logger.logError(error, { req, action: 'login' });
             res.status(500).json({ error: 'Error interno del servidor' });
         }
     }

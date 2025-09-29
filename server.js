@@ -55,6 +55,24 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Error interno del servidor' });
 });
 
+// Manejo global de errores no capturados
+process.on('uncaughtException', (error) => {
+    logger.logSystemError(`Uncaught Exception: ${error.message}`, { 
+        stack: error.stack,
+        type: 'uncaughtException'
+    });
+    console.error('💥 Error crítico no capturado:', error.message);
+    // No salir del proceso para mantener el servidor funcionando
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    logger.logSystemError(`Unhandled Promise Rejection: ${reason}`, { 
+        promise: promise.toString(),
+        type: 'unhandledRejection'
+    });
+    console.error('⚠️ Promesa rechazada no manejada:', reason);
+});
+
 // Iniciar servidor
 app.listen(PORT, () => {
     console.log('=== CLÍNICA OFTALMOLÓGICA MÍRAME ===');
@@ -65,6 +83,7 @@ app.listen(PORT, () => {
     console.log('   👩‍💼 Secretaria: secretaria / recepcion789');
     console.log('❌ Credenciales inválidas para pruebas: test / test123');
     console.log('📊 Sistema de logging activo');
+    console.log('🛡️ Manejo global de errores activado');
     console.log('=====================================');
 });
 

@@ -1,3 +1,8 @@
+# Logs y archivos de logging (AIEP)
+logs/
+*.log
+Log_Excepciones_*.txt
+
 # Dependencies
 node_modules/
 npm-debug.log*
@@ -110,6 +115,34 @@ Thumbs.db
 
 # Test files
 test-logging.js
+
+# Archivos de configuración sensibles (AIEP)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+config.json
+secrets.json
+
+# Archivos de sesión y temporales
+sessions/
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Archivos de backup
+*.bak
+*.backup
+backup/
+
+# Archivos de certificados y claves
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
 
 # Old files
 logger.js
