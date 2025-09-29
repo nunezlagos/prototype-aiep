@@ -3,7 +3,7 @@
  * Clínica Oftalmológica Mírame - Estructura MVC
  */
 
-const { logger } = require('./src/helpers/logger');
+const { logger } = require('./helpers/logger');
 
 // Test simple sin dependencias externas
 async function runBasicTests() {
@@ -21,19 +21,19 @@ async function runBasicTests() {
         
         // Test 3: Routes structure
         console.log('3️⃣ Verificando estructura de rutas...');
-        const authRoutes = require('./src/routes/auth');
-        const dashboardRoutes = require('./src/routes/dashboard');
+        const authRoutes = require('./routes/auth');
+        const dashboardRoutes = require('./routes/dashboard');
         console.log('✅ Rutas cargadas correctamente\n');
         
         // Test 4: Controllers
         console.log('4️⃣ Verificando controladores...');
-        const AuthController = require('./src/controllers/authController');
-        const DashboardController = require('./src/controllers/dashboardController');
+        const AuthController = require('./controllers/authController');
+        const DashboardController = require('./controllers/dashboardController');
         console.log('✅ Controladores cargados correctamente\n');
         
         // Test 5: Middlewares
         console.log('5️⃣ Verificando middlewares...');
-        const { requireAuth, securityMiddleware } = require('./src/middlewares/auth');
+        const { requireAuth, securityMiddleware } = require('./middlewares/auth');
         console.log('✅ Middlewares cargados correctamente\n');
         
         console.log('🎉 TODOS LOS TESTS BÁSICOS PASARON');

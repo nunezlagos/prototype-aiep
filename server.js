@@ -31,11 +31,11 @@ app.use(session({
 app.use(securityMiddleware);
 
 // Archivos estáticos
-app.use(express.static('public'));
+app.use(express.static('src/public'));
 
 // Rutas principales
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'src', 'public', 'index.html'));
 });
 
 // Rutas de la aplicación
